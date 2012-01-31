@@ -91,7 +91,7 @@ function print_reader( $echo=true, $reader_id = 0) {
     if ($echo)
         echo $username;
     return $username;
-} 
+}
 
 /**
  * Prints the author of the book.
@@ -411,6 +411,13 @@ function book_url( $echo = true, $domain = null ) {
     if ( empty($domain) )
         $domain = $options['domain'];
 
+    if ( book_meta("PublisherUrl", false) ) {
+    	$url = apply_filters('book_url', book_meta("PublisherUrl", false));
+    	if ( $echo )
+			echo $url;
+        return $url;
+    }
+
     if ( is_custom_book() )
         return book_permalink($echo);
     else {
@@ -690,7 +697,7 @@ function book_meta( $key, $echo = true ) {
     if ( empty($meta) )
         return;
 
-    $meta = apply_filters('book_meta_val', $meta);
+
 
     if ( $echo )
         echo $meta;
